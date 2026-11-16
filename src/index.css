@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+@theme {
+  --color-airport-bg: #0B0C0E;
+  --color-airport-card: rgba(18, 20, 24, 0.7);
+  --color-airport-card-hover: rgba(26, 29, 36, 0.85);
+  --color-airport-border: rgba(255, 255, 255, 0.08);
+  --color-airport-border-amber: rgba(255, 176, 0, 0.35);
+  --color-airport-amber: #FFB000;
+  --color-airport-amber-light: #FFC033;
+  --color-airport-amber-dim: #996A00;
+  --color-airport-cream: #EDE8DC;
+  --color-airport-muted: #8E929B;
+  --color-airport-radar: #00FF88;
+  --color-airport-alert: #FF453A;
+  --color-airport-blue: #30B0C7;
+
+  --font-mono: 'Chivo Mono', monospace;
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-display: 'Syne', sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background-color: #0B0C0E;
+  color: #EDE8DC;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(255, 176, 0, 0.08), transparent 70%),
+    radial-gradient(circle at 100% 100%, rgba(48, 176, 199, 0.03), transparent 40%),
+    linear-gradient(to bottom, transparent, rgba(11, 12, 14, 0.8));
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Custom Airport Glassmorphism Utilities */
+.glass-panel {
+  background: rgba(18, 20, 24, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-panel-amber {
+  background: rgba(28, 23, 14, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 176, 0, 0.25);
+  box-shadow: 0 0 25px rgba(255, 176, 0, 0.08);
+}
+
+.amber-glow {
+  text-shadow: 0 0 12px rgba(255, 176, 0, 0.55);
+}
+
+.amber-glow-box {
+  box-shadow: 0 0 25px rgba(255, 176, 0, 0.2);
+}
+
+/* Split flap character box */
+.split-flap-char {
+  background: linear-gradient(180deg, #181A1F 0%, #111216 49.5%, #070709 50.5%, #15161B 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 2px solid #000;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 4px 12px rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+.split-flap-char::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.9);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Subtle runway scanlines */
+.scanlines {
+  background: linear-gradient(
+    rgba(255, 255, 255, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  );
+  background-size: 100% 4px;
+}
+
+/* Custom Airport Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B0C0E;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 176, 0, 0.2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 176, 0, 0.4);
+}
+
+/* Animations */
+@keyframes radar-sweep {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-radar {
+  animation: radar-sweep 4s linear infinite;
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+

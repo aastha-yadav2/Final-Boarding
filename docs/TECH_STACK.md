@@ -30,3 +30,4 @@
 - **CSS Plugin:** `@tailwindcss/vite` (Zero-config CSS scanning and instant compilation).
 - **Type Checking:** `tsc -b` (TypeScript Project References build mode with `noUnusedLocals` and `strict: true`).
 - **Typography:** Google Fonts (`Plus Jakarta Sans` for clean UI readability, `Chivo Mono` for digital split-flap flight numbers, `Syne` for bold terminal branding).
+

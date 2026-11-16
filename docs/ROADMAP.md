@@ -33,3 +33,4 @@
 - [ ] Lightweight multi-user synchronization via room code.
 - [ ] Role-based access: Flight Captain (Admin) vs. Flight Crew (Task Assignees).
 - [ ] Live shared departure board view for hackathon teams and project war rooms.
+

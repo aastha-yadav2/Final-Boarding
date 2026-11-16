@@ -22,3 +22,4 @@ Fixes #(issue number)
 - [ ] Tested localStorage persistence across page reloads.
 - [ ] Confirmed Web Audio API synthesizer plays without errors.
 - [ ] Clean conventional commit message formatting used.
+

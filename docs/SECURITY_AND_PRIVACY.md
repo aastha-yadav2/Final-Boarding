@@ -34,3 +34,4 @@ You have full control over your data at all times:
 ## 4. Responsible Disclosure
 
 If you believe you have discovered a security defect or potential client-side vulnerability in FINAL BOARDING, please report it via private disclosure as outlined in [SECURITY.md](../SECURITY.md).
+

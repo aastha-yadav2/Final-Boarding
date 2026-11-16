@@ -30,3 +30,4 @@ The following technical limitations exist in the current v1.0.0 client release:
 
 ## 5. Flagsmith Remote Connection
 - **Description:** The feature flags interface is implemented as a local client-side abstraction (`useFeatureFlags.ts`). It is prepared for Flagsmith integration, but does not yet connect to an active remote Flagsmith cloud instance.
+

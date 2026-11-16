@@ -1,12 +1,9 @@
-import React from 'react';
-import { ArrowRight, PlaneTakeoff, ShieldAlert, CheckSquare } from 'lucide-react';
+import React, { useState } from 'react';
+import { ArrowRight, ShieldAlert, CheckSquare, Maximize2, Minimize2 } from 'lucide-react';
 import { Milestone, ProjectSettings, Task } from '../types';
-import { LiveCountdown } from '../components/dashboard/LiveCountdown';
+import { IconicDepartureBoard } from '../components/board/IconicDepartureBoard';
 import { FlightMetrics } from '../components/dashboard/FlightMetrics';
-import { NextDepartureCard } from '../components/dashboard/NextDepartureCard';
-import { GlassCard } from '../components/ui/GlassCard';
-import { StatusBadge } from '../components/ui/StatusBadge';
-import { formatAirportDate } from '../utils/time';
+import { airportAudio } from '../utils/sound';
 
 interface FlightDashboardProps {
   settings: ProjectSettings;
@@ -16,6 +13,7 @@ interface FlightDashboardProps {
   onGoToMilestones: () => void;
   onGoToMissions: () => void;
   onGoToRecovery: () => void;
+  onOpenSettings: () => void;
 }
 
 export const FlightDashboard: React.FC<FlightDashboardProps> = ({
@@ -26,17 +24,21 @@ export const FlightDashboard: React.FC<FlightDashboardProps> = ({
   onGoToMilestones,
   onGoToMissions,
   onGoToRecovery,
+  onOpenSettings,
 }) => {
-  // Find next upcoming milestone (first non-done milestone)
-  const nextMilestone = milestones.find((m) => m.status !== 'DONE');
-
+  const [wallpaperMode, setWallpaperMode] = useState(false);
   const delayedCount = milestones.filter((m) => m.status === 'DELAYED').length;
   const pendingTasksCount = tasks.filter((t) => !t.completed).length;
 
+  const toggleWallpaperMode = () => {
+    airportAudio.playFlipClick();
+    setWallpaperMode(!wallpaperMode);
+  };
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Delayed Flight Banner Alert if any exist */}
-      {delayedCount > 0 && (
+      {delayedCount > 0 && !wallpaperMode && (
         <div
           onClick={onGoToRecovery}
           className="p-4 rounded-2xl bg-[#FF453A]/15 border border-[#FF453A]/40 flex items-center justify-between gap-4 cursor-pointer hover:bg-[#FF453A]/20 transition-all shadow-[0_0_20px_rgba(255,69,58,0.15)] animate-pulse"
@@ -59,106 +61,82 @@ export const FlightDashboard: React.FC<FlightDashboardProps> = ({
         </div>
       )}
 
-      {/* 1. Main Live Countdown Display */}
-      <LiveCountdown
-        deadline={settings.deadline}
-        projectName={settings.projectName}
-        eventName={settings.eventName}
-      />
-
-      {/* 2. Flight Telemetry Metrics Grid */}
-      <FlightMetrics milestones={milestones} tasks={tasks} />
-
-      {/* Quick Mission Dispatch Link */}
-      <div className="flex items-center justify-between p-4 rounded-2xl bg-[#14161B]/80 border border-white/[0.08] font-mono text-xs">
-        <div className="flex items-center gap-3">
-          <CheckSquare className="w-4 h-4 text-[#FFB000]" />
-          <span className="text-[#8E929B]">
-            CREW DIRECTIVES: <strong className="text-[#EDE8DC]">{pendingTasksCount}</strong> mission(s) pending for today's flight plan.
-          </span>
+      {/* Control Strip for Mode Toggles */}
+      <div className="flex items-center justify-between gap-3 text-xs font-mono text-[#8E929B] px-2">
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-[#52C41A] animate-pulse" />
+          <span className="tracking-widest uppercase text-[#EDE8DC]">DEPARTURE BOARD LIVE</span>
         </div>
-        <button
-          onClick={onGoToMissions}
-          className="text-[#FFB000] hover:text-[#FFC033] font-semibold flex items-center gap-1.5 uppercase tracking-wider transition-transform hover:translate-x-1"
-        >
-          <span>Open Crew Checklist</span>
-          <ArrowRight className="w-4 h-4" />
-        </button>
-      </div>
 
-      {/* 3. Next Upcoming Departure Spotlight */}
-      <NextDepartureCard
-        milestone={nextMilestone}
-        onSelectMilestone={onSelectMilestone}
-        onGoToMilestones={onGoToMilestones}
-      />
-
-      {/* 4. Departure Gate Schedule Snapshot (The Flight Board) */}
-      <GlassCard className="p-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/[0.08]">
-          <div className="flex items-center gap-2.5">
-            <PlaneTakeoff className="w-5 h-5 text-[#FFB000]" />
-            <h3 className="text-lg font-bold font-display text-[#EDE8DC] tracking-wide uppercase">
-              Gate Departure Board (All 5 Flights)
-            </h3>
-          </div>
-
+        <div className="flex items-center gap-2">
           <button
-            onClick={onGoToMilestones}
-            className="text-xs font-mono text-[#FFB000] hover:text-[#FFC033] flex items-center gap-1.5 transition-transform hover:translate-x-1"
+            onClick={toggleWallpaperMode}
+            className={`px-3 py-1.5 rounded-xl border flex items-center gap-1.5 text-xs font-mono tracking-wider transition-all ${
+              wallpaperMode
+                ? 'bg-[#F5A623] text-black border-[#F5A623] font-bold shadow-[0_0_15px_rgba(245,166,35,0.4)]'
+                : 'bg-white/5 border-white/10 text-[#8E929B] hover:text-[#EDE8DC] hover:bg-white/10'
+            }`}
+            title="Toggle minimal 1:1 wallpaper lock-screen mode"
           >
-            <span>FULL DEPARTURE TIMELINE</span>
-            <ArrowRight className="w-4 h-4" />
+            {wallpaperMode ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
+            <span>{wallpaperMode ? 'SHOW CONTROLS' : 'LOCK-SCREEN MODE'}</span>
           </button>
         </div>
+      </div>
 
-        {/* Departure Table */}
-        <div className="divide-y divide-white/[0.06] overflow-x-auto">
-          {milestones.map((m, idx) => (
-            <div
-              key={m.id}
-              onClick={() => onSelectMilestone(m)}
-              className="py-3.5 px-2 flex items-center justify-between gap-4 hover:bg-white/[0.03] rounded-xl transition-colors cursor-pointer group select-none"
+      {/* THE ICONIC DEPARTURE BOARD HERO (Matches the reference 1:1) */}
+      <div className="relative rounded-3xl border border-white/[0.08] bg-[#0A0B0D] p-2 sm:p-6 shadow-2xl overflow-hidden">
+        <IconicDepartureBoard
+          settings={settings}
+          milestones={milestones}
+          onSelectMilestone={onSelectMilestone}
+          onOpenSettings={onOpenSettings}
+        />
+      </div>
+
+      {/* Secondary Telemetry & Fast Directives (Hidden in pure wallpaper mode) */}
+      {!wallpaperMode && (
+        <div className="space-y-6 pt-4">
+          {/* Quick Mission Dispatch Strip */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-[#14161B]/80 border border-white/[0.08] font-mono text-xs">
+            <div className="flex items-center gap-3">
+              <CheckSquare className="w-4 h-4 text-[#F5A623]" />
+              <span className="text-[#8E929B]">
+                CREW DIRECTIVES: <strong className="text-[#EDE8DC]">{pendingTasksCount}</strong> mission(s) pending for today's flight plan.
+              </span>
+            </div>
+            <button
+              onClick={onGoToMissions}
+              className="text-[#F5A623] hover:text-[#FFC033] font-semibold flex items-center gap-1.5 uppercase tracking-wider transition-transform hover:translate-x-1 self-start sm:self-auto"
             >
-              {/* Flight & Gate */}
-              <div className="flex items-center gap-3 min-w-[140px]">
-                <span className="w-6 h-6 rounded bg-black/40 border border-white/10 flex items-center justify-center text-[10px] font-mono font-bold text-[#FFB000]">
-                  0{idx + 1}
-                </span>
-                <div>
-                  <div className="text-xs font-mono font-bold text-[#EDE8DC] group-hover:text-[#FFB000] transition-colors">
-                    {m.flightCode}
-                  </div>
-                  <div className="text-[10px] font-mono text-[#8E929B]">
-                    {m.gate} • {m.terminal}
-                  </div>
-                </div>
-              </div>
+              <span>Open Crew Checklist</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
 
-              {/* Title & Deliverable */}
-              <div className="hidden md:block flex-1 min-w-0 pr-4">
-                <div className="text-xs font-semibold text-[#EDE8DC] truncate">
-                  {m.title}
-                </div>
-                <div className="text-[11px] font-mono text-[#8E929B] truncate">
-                  {m.deliverable}
-                </div>
-              </div>
+          {/* Full Flight Telemetry Metrics Grid */}
+          <FlightMetrics milestones={milestones} tasks={tasks} />
 
-              {/* Departure Time */}
-              <div className="font-mono text-xs text-[#EDE8DC] text-right shrink-0">
-                <div>{formatAirportDate(m.date)}</div>
+          {/* Gate Timeline Action Link */}
+          <div className="flex items-center justify-between p-5 rounded-2xl bg-[#121418] border border-white/5 font-mono text-xs">
+            <div>
+              <div className="text-sm font-bold text-[#EDE8DC] uppercase font-condensed tracking-wider">
+                Looking for the interactive runway timeline & gate deliverables?
               </div>
-
-              {/* Status Badge */}
-              <div className="shrink-0">
-                <StatusBadge status={m.status} size="sm" />
+              <div className="text-[#8E929B] text-[11px] mt-0.5">
+                Switch to the Flight Board view to inspect full criteria and deliverable specs for each gate.
               </div>
             </div>
-          ))}
+            <button
+              onClick={onGoToMilestones}
+              className="px-4 py-2 rounded-xl bg-[#F5A623]/15 text-[#F5A623] border border-[#F5A623]/30 hover:bg-[#F5A623]/25 font-bold uppercase tracking-wider transition-colors flex items-center gap-2 shrink-0"
+            >
+              <span>Full Flight Board</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
         </div>
-      </GlassCard>
+      )}
     </div>
   );
 };
-

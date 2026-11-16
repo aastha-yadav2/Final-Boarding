@@ -153,3 +153,4 @@ export interface FeatureFlags {
 ```
 
 The hook exposes `isFeatureEnabled(key)` and currently evaluates against locally persisted overrides in `localStorage`. When the official Flagsmith SDK is connected, this hook acts as a zero-refactor adapter delegating directly to `flagsmith.hasFeature(key)`.
+

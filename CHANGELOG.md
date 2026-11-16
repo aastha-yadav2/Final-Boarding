@@ -36,3 +36,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - Web Audio API synthesizer generating airport two-tone announcement chimes, flip clicks, and celebration tones with zero external audio assets.
 - **Visual Design Identity:**
   - Custom glassmorphism aesthetic using Midnight Black (`#0B0C0E`), Airport Amber (`#FFB000`), Warm Cream (`#EDE8DC`), and Muted Slate (`#8E929B`).
+

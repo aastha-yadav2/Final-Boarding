@@ -28,3 +28,4 @@ If you discover a security vulnerability or potential data leak in FINAL BOARDIN
    - Any recommended remediation steps.
 
 Maintainers will review the submission, reproduce the issue, and release a fix as soon as possible.
+

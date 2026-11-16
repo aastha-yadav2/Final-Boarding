@@ -40,3 +40,4 @@ In version 1.0.0, the feature flag architecture is implemented as an integration
 
 ### 8. How do I reset the application back to the default hackathon data?
 Open **Avionics Config** (via the header button or Settings tab), scroll to the bottom, and click **Reset Defaults**. Confirm the prompt in the modal to restore the original hackathon milestones and tasks.
+

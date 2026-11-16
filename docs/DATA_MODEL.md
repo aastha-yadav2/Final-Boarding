@@ -101,3 +101,4 @@ export function getStoredItem<T>(key: string, defaultValue: T): T {
 ```
 
 If stored data is corrupted or invalid, the application logs a warning and falls back to safe default mock data without throwing unhandled runtime exceptions.
+

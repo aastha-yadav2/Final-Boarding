@@ -41,3 +41,4 @@ To maintain airport-grade precision, **FINAL BOARDING** relies on strict static 
   1. Verify two-tone chime triggers on milestone completion and sound toggle.
   2. Verify audio cleanly respects the mute toggle state without console exceptions.
   3. Verify audio handles browser autoplay restrictions gracefully prior to initial user click.
+

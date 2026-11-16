@@ -86,3 +86,4 @@ Welcome to **FINAL BOARDING**. This operational guide details every user interac
 ## 7. Audio Controls
 
 - Toggle the speaker icon button in the header at any time to mute or unmute terminal audio chimes.
+

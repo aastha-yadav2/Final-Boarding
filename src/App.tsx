@@ -213,6 +213,7 @@ export const App: React.FC = () => {
             onGoToMilestones={() => setActiveTab('milestones')}
             onGoToMissions={() => setActiveTab('missions')}
             onGoToRecovery={() => setActiveTab('recovery')}
+            onOpenSettings={() => setSettingsModalOpen(true)}
           />
         )}
 

@@ -59,3 +59,4 @@ Ensure the output bundle compiles cleanly:
 - `dist/index.html`
 - `dist/assets/index-[hash].js`
 - `dist/assets/index-[hash].css`
+

@@ -72,3 +72,4 @@ We adhere to [Conventional Commits](https://www.conventionalcommits.org/):
 3. Ensure no unnecessary dependencies are introduced.
 4. Verify cross-browser and mobile responsive styling.
 5. Once submitted, project maintainers will review your PR and provide constructive feedback.
+

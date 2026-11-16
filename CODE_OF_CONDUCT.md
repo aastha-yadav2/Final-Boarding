@@ -31,3 +31,4 @@ This Code of Conduct applies within all project spaces, including the GitHub rep
 ## Reporting & Contact
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the project maintainers via the repository issues or direct maintainer contact. All complaints will be reviewed and investigated promptly and fairly.
+

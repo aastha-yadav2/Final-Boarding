@@ -55,3 +55,4 @@ npm run preview
 ## 4. Environment Variables
 
 > **Note:** FINAL BOARDING v1.0.0 is an offline-first, client-side application. It **does not require any `.env` file** or secret keys to function out of the box. All configuration is managed via the in-app **Avionics Config** settings and persisted to browser `localStorage`.
+

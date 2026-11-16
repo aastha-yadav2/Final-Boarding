@@ -62,3 +62,4 @@ FINAL-BOARDING/
    - Use glassmorphism classes: `.glass-panel`, `.split-flap-char`, `.amber-glow`.
 3. **Web Audio Policy:**
    - Browsers enforce autoplay policies; the `AudioContext` initializes on the first user interaction (click) to ensure seamless sound reproduction.
+

@@ -17,7 +17,7 @@ export const INITIAL_MILESTONES: Milestone[] = [
     title: 'FLIGHT PLAN',
     date: '2026-11-19T23:59:00',
     description: 'Finalize problem statement, project idea, and feature scope.',
-    deliverable: 'Project Charter & Scope Specification',
+    deliverable: 'Lock rubric & choose one core idea',
     status: 'IN PROGRESS',
     gate: 'Gate A-01',
     terminal: 'T1',
